@@ -8,6 +8,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var patients = require("./routes/patients");
 var appointments = require("./routes/appointments");
+var doctors = require("./routes/doctors");
 const cors = require("cors");
 var app = express();
 
@@ -25,6 +26,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/patients", patients);
 app.use("/appointments", appointments);
+app.use("/doctors", doctors);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -7,15 +7,18 @@ import {
   sendAddAppointmentRequest,
 } from "../services/AppointmentService";
 import { fetchProductsRequest } from "../services/PatientService";
+import { fetchDoctorsRequest } from "../services/DoctorService";
 
 function AppointmentScreen({ onLogout }) {
   const navigate = useNavigate();
   const [showAddAppointmentModal, setShowAddAppointmentModal] = useState(false);
   const [patients, setPatients] = useState([]);
+  const [doctors, setDoctors] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [formAddAppointmentValues, setFormAddAppointmentValues] = useState({
     patientname: "",
     appointmentdate: "",
+    doctor: "",
     contactnumber: "",
   });
   const handleAddAppointmentInputChange = (event) => {
@@ -27,6 +30,12 @@ function AppointmentScreen({ onLogout }) {
   };
   const handleCloseAddAppointmentModal = () => {
     setShowAddAppointmentModal(false);
+    setFormAddAppointmentValues({
+      patientname: "",
+      appointmentdate: "",
+      doctor: "",
+      contactnumber: "",
+    });
   };
   const handleLogout = () => {
     sessionStorage.clear();
@@ -45,6 +54,10 @@ function AppointmentScreen({ onLogout }) {
     console.log(e.target.value);
     formAddAppointmentValues.patientname = e.target.value;
   };
+  const handleSelectDoctor = (e) => {
+    console.log(e.target.value);
+    formAddAppointmentValues.doctor = e.target.value;
+  };
 
   const handleAddAppointmentClick = (event) => {
     event.preventDefault();
@@ -52,15 +65,21 @@ function AppointmentScreen({ onLogout }) {
   };
 
   const handleAddAppointmentRequest = () => {
-    const { patientname, appointmentdate, contactnumber } =
+    const { patientname, appointmentdate, doctor, contactnumber } =
       formAddAppointmentValues;
 
-    sendAddAppointmentRequest(patientname, appointmentdate, contactnumber)
+    sendAddAppointmentRequest(
+      patientname,
+      appointmentdate,
+      doctor,
+      contactnumber
+    )
       .then((data) => {
         Swal.fire({
           icon: "success",
           title: "Successfully Added Patient",
           showConfirmButton: false,
+          timer: 800,
         });
         setShowAddAppointmentModal(false);
         reload();
@@ -73,6 +92,14 @@ function AppointmentScreen({ onLogout }) {
           text: "Failed To Add Product, Please Try Again Later",
           showConfirmButton: false,
           timer: 800,
+        });
+      })
+      .finally(() => {
+        setFormAddAppointmentValues({
+          patientname: "",
+          appointmentdate: "",
+          doctor: "",
+          contactnumber: "",
         });
       });
   };
@@ -91,6 +118,24 @@ function AppointmentScreen({ onLogout }) {
       })
       .catch((error) => {
         setPatients([]);
+        return;
+      });
+  };
+
+  const reloadDoctors = () => {
+    fetchDoctorsRequest()
+      .then((response) => {
+        if (!response.ok) {
+          setDoctors([]);
+          return;
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setDoctors(data);
+      })
+      .catch((error) => {
+        setDoctors([]);
         return;
       });
   };
@@ -115,6 +160,10 @@ function AppointmentScreen({ onLogout }) {
 
   useEffect(() => {
     reload();
+  }, []);
+
+  useEffect(() => {
+    reloadDoctors();
   }, []);
 
   useEffect(() => {
@@ -164,16 +213,16 @@ function AppointmentScreen({ onLogout }) {
                     </a>
                   </li>
 
-                  {/* <li className="scroll-to-section">
+                  <li className="scroll-to-section">
                     <a
-                      href="#transactions"
+                      href="#doctors"
                       onClick={() => {
-                        navigate("/transactions");
+                        navigate("/doctors");
                       }}
                     >
-                      Transactions
+                      Doctors
                     </a>
-                  </li> */}
+                  </li>
                   <li className="scroll-to-section">
                     <a href="#contact-us" onClick={handleLogout}>
                       Logout
@@ -204,7 +253,7 @@ function AppointmentScreen({ onLogout }) {
                       <th className="text-center">Patient Name</th>
                       <th>Appointment Date</th>
                       <th className="text-center">Contact Number</th>
-                      {/* <th>Action</th> */}
+                      <th>Doctor</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -217,6 +266,8 @@ function AppointmentScreen({ onLogout }) {
                         <td className="text-center">
                           {appointment.contactnumber}
                         </td>
+                        <td>{appointment.doctor}</td>
+
                         {/* <td>
                           <Button
                             variant="success"
@@ -269,12 +320,36 @@ function AppointmentScreen({ onLogout }) {
                 onChange={handleSelect}
                 className="form-control"
               >
+                <option key="-1" value="Select Patient">
+                  Select Patient
+                </option>
                 {patients.map((patient) => (
                   <option
                     key={patient.patientID}
                     value={patient.lastname + ", " + patient.firstname}
                   >
                     {patient.lastname}, {patient.firstname}
+                  </option>
+                ))}
+              </select>
+            </Form.Group>
+
+            <Form.Group controlId="signup-doctor">
+              <Form.Label for="doctor">Doctor:</Form.Label>
+              <select
+                name="doctor"
+                onChange={handleSelectDoctor}
+                className="form-control"
+              >
+                <option key="-1" value="Select Doctor">
+                  Select Doctor
+                </option>
+                {doctors.map((doctor) => (
+                  <option
+                    key={doctor.doctorid}
+                    value={doctor.doctorname + "- " + doctor.specialty}
+                  >
+                    {doctor.doctorname} - {doctor.specialty}
                   </option>
                 ))}
               </select>

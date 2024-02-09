@@ -1,5 +1,11 @@
 const { Pool } = require("pg");
 const bcrypt = require("bcrypt");
+const {
+  addDoctor,
+  fetchDoctors,
+  deleteDoctor,
+  updateDoctor,
+} = require("./doctors");
 
 const dbConfig = {
   user: "postgres",
@@ -367,16 +373,21 @@ const addTransaction = (productNames, totalAmount, cash, change) => {
   });
 };
 
-const addAppointment = (patientname, appointmentdate, contactnumber) => {
+const addAppointment = (
+  patientname,
+  appointmentdate,
+  doctor,
+  contactnumber
+) => {
   return new Promise((resolve, reject) => {
     pool
       .connect()
       .then((client) => {
         const query =
-          "INSERT INTO appointments (patientname, appointmentdate, contactnumber) VALUES ($1, $2, $3)";
+          "INSERT INTO appointments (patientname, appointmentdate,doctor, contactnumber) VALUES ($1, $2, $3, $4)";
 
         return client
-          .query(query, [patientname, appointmentdate, contactnumber])
+          .query(query, [patientname, appointmentdate, doctor, contactnumber])
           .then((result) => {
             client.release(); // Release the client
             console.log("Appointment added to the database");
@@ -468,4 +479,8 @@ module.exports = {
   fetchTransactions,
   addAppointment,
   fetchAppointments,
+  addDoctor,
+  fetchDoctors,
+  deleteDoctor,
+  updateDoctor,
 };

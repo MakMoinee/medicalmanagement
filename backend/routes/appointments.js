@@ -16,10 +16,10 @@ router.get("/", async function (req, res, next) {
 });
 
 router.post("/", async function (req, res, next) {
-  const { patientname, appointmentdate, contactnumber } = req.body;
+  const { patientname, appointmentdate, doctor, contactnumber } = req.body;
   console.log(req.body);
   if (patientname && appointmentdate && contactnumber) {
-    await addAppointment(patientname, appointmentdate, contactnumber)
+    await addAppointment(patientname, appointmentdate, doctor, contactnumber)
       .then((data) => {
         return res.status(200).json(data);
       })

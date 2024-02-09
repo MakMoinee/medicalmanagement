@@ -54,16 +54,16 @@ function DashboardScreen({ onLogout }) {
                       Patients
                     </a>
                   </li>
-                  {/* <li className="scroll-to-section">
+                  <li className="scroll-to-section">
                     <a
-                      href="#transactions"
+                      href="#doctors"
                       onClick={() => {
-                        navigate("/transactions");
+                        navigate("/doctors");
                       }}
                     >
-                      Transactions
+                      Doctors
                     </a>
-                  </li> */}
+                  </li>
                   <li className="scroll-to-section">
                     <a href="#contact-us" onClick={handleLogout}>
                       Logout

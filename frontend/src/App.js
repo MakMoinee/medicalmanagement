@@ -11,6 +11,7 @@ import PosScreen from "./Screens/PosScreen";
 import TransactionScreen from "./Screens/TransactionScreen";
 import PatientScreen from "./Screens/PatientScreen";
 import AppointmentScreen from "./Screens/AppointmentScreen";
+import DoctorScreen from "./Screens/DoctorScreen";
 
 function App() {
   const initialLoginStatus = localStorage.getItem("isLoggedIn") === "true"; // Corrected the comparison
@@ -67,6 +68,17 @@ function App() {
           element={
             isLoggedIn ? (
               <AppointmentScreen onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+
+        <Route
+          path="/doctors"
+          element={
+            isLoggedIn ? (
+              <DoctorScreen onLogout={handleLogout} />
             ) : (
               <Navigate to="/" />
             )

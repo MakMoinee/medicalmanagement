@@ -3,6 +3,7 @@ import defaultData from "../Commons/Commons";
 const sendAddAppointmentRequest = (
   patientname,
   appointmentdate,
+  doctor,
   contactnumber
 ) => {
   return new Promise((resolve, reject) => {
@@ -11,6 +12,7 @@ const sendAddAppointmentRequest = (
       body: JSON.stringify({
         patientname,
         appointmentdate,
+        doctor,
         contactnumber,
       }),
       headers: {

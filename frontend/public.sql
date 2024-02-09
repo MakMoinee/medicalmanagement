@@ -5,22 +5,22 @@
  Source Server Type    : PostgreSQL
  Source Server Version : 160002 (160002)
  Source Host           : localhost:5432
- Source Catalog        : coffeedb
+ Source Catalog        : medicaldb
  Source Schema         : public
 
  Target Server Type    : PostgreSQL
  Target Server Version : 160002 (160002)
  File Encoding         : 65001
 
- Date: 09/02/2024 10:15:24
+ Date: 09/02/2024 15:30:40
 */
 
 
 -- ----------------------------
--- Sequence structure for products_productid_seq
+-- Sequence structure for appointments_appointmentid_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."products_productid_seq";
-CREATE SEQUENCE "public"."products_productid_seq" 
+DROP SEQUENCE IF EXISTS "public"."appointments_appointmentid_seq";
+CREATE SEQUENCE "public"."appointments_appointmentid_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 2147483647
@@ -28,10 +28,10 @@ START 1
 CACHE 1;
 
 -- ----------------------------
--- Sequence structure for transactions_transactionid_seq
+-- Sequence structure for patients_patientid_seq
 -- ----------------------------
-DROP SEQUENCE IF EXISTS "public"."transactions_transactionid_seq";
-CREATE SEQUENCE "public"."transactions_transactionid_seq" 
+DROP SEQUENCE IF EXISTS "public"."patients_patientid_seq";
+CREATE SEQUENCE "public"."patients_patientid_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 2147483647
@@ -50,43 +50,43 @@ START 1
 CACHE 1;
 
 -- ----------------------------
--- Table structure for products
+-- Table structure for appointments
 -- ----------------------------
-DROP TABLE IF EXISTS "public"."products";
-CREATE TABLE "public"."products" (
-  "productid" int4 NOT NULL DEFAULT nextval('products_productid_seq'::regclass),
-  "productname" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-  "productprice" numeric(10,2) NOT NULL,
-  "category" varchar(100) COLLATE "pg_catalog"."default",
-  "stock" int4,
+DROP TABLE IF EXISTS "public"."appointments";
+CREATE TABLE "public"."appointments" (
+  "appointmentid" int4 NOT NULL DEFAULT nextval('appointments_appointmentid_seq'::regclass),
+  "patientname" varchar(100) COLLATE "pg_catalog"."default",
+  "appointmentdate" date,
+  "contactnumber" varchar(100) COLLATE "pg_catalog"."default"
+)
+;
+
+-- ----------------------------
+-- Records of appointments
+-- ----------------------------
+INSERT INTO "public"."appointments" VALUES (6, 'dd, ddd', '2024-02-10', '09269440075');
+
+-- ----------------------------
+-- Table structure for patients
+-- ----------------------------
+DROP TABLE IF EXISTS "public"."patients";
+CREATE TABLE "public"."patients" (
+  "patientid" int4 NOT NULL DEFAULT nextval('patients_patientid_seq'::regclass),
+  "firstname" varchar(100) COLLATE "pg_catalog"."default",
+  "middlename" varchar(100) COLLATE "pg_catalog"."default",
+  "lastname" varchar(100) COLLATE "pg_catalog"."default",
+  "address" varchar(255) COLLATE "pg_catalog"."default",
+  "gender" varchar(10) COLLATE "pg_catalog"."default",
+  "phonenumber" varchar(100) COLLATE "pg_catalog"."default",
+  "dependents" varchar(100) COLLATE "pg_catalog"."default",
+  "history" varchar(100) COLLATE "pg_catalog"."default",
   "created_at" date NOT NULL
 )
 ;
 
 -- ----------------------------
--- Records of products
+-- Records of patients
 -- ----------------------------
-INSERT INTO "public"."products" VALUES (7, 'Coffee Barako', 39.00, 'Pure Coffee', 25, '2024-02-09');
-INSERT INTO "public"."products" VALUES (8, 'Fita', 15.00, 'Biscuits', 20, '2024-02-09');
-
--- ----------------------------
--- Table structure for transactions
--- ----------------------------
-DROP TABLE IF EXISTS "public"."transactions";
-CREATE TABLE "public"."transactions" (
-  "transactionid" int4 NOT NULL DEFAULT nextval('transactions_transactionid_seq'::regclass),
-  "items" varchar(100) COLLATE "pg_catalog"."default",
-  "total" numeric(10,2),
-  "cash" numeric(10,2),
-  "change_amount" numeric(10,2),
-  "transaction_date" date NOT NULL
-)
-;
-
--- ----------------------------
--- Records of transactions
--- ----------------------------
-INSERT INTO "public"."transactions" VALUES (4, '{"Coffee Barako: PHP39.00","Fita: PHP15.00"}', 54.00, 100.00, 46.00, '2024-02-09');
 
 -- ----------------------------
 -- Table structure for users
@@ -94,12 +94,12 @@ INSERT INTO "public"."transactions" VALUES (4, '{"Coffee Barako: PHP39.00","Fita
 DROP TABLE IF EXISTS "public"."users";
 CREATE TABLE "public"."users" (
   "id" int4 NOT NULL DEFAULT nextval('users_id_seq'::regclass),
-  "firstname" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
+  "firstname" varchar(100) COLLATE "pg_catalog"."default",
   "middlename" varchar(100) COLLATE "pg_catalog"."default",
-  "lastname" varchar(100) COLLATE "pg_catalog"."default" NOT NULL,
-  "email" varchar(50) COLLATE "pg_catalog"."default" NOT NULL,
-  "password" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
-  "usertype" int4 NOT NULL,
+  "lastname" varchar(100) COLLATE "pg_catalog"."default",
+  "email" varchar(50) COLLATE "pg_catalog"."default",
+  "password" varchar(255) COLLATE "pg_catalog"."default",
+  "usertype" int4,
   "created_at" date NOT NULL,
   "updated_at" date
 )
@@ -108,39 +108,38 @@ CREATE TABLE "public"."users" (
 -- ----------------------------
 -- Records of users
 -- ----------------------------
-INSERT INTO "public"."users" VALUES (3, 'sample', 'sample', 'sample', 'sample@gmail.com', '$2b$10$gMx3I.P3Z5rjlL4bvBOgruSXPgXu2MkEVZIkzwllaCAllRVWzmF6i', 2, '2024-02-09', NULL);
-INSERT INTO "public"."users" VALUES (4, 'John', 'X', 'Doe', 'john@gmail.com', '$2b$10$egkRDP9XWRspZGpX1/lu9OUV/OBfkqUtvl.cmg8Oe9NK5mRDPFk/6', 2, '2024-02-09', NULL);
+INSERT INTO "public"."users" VALUES (1, 'sample', 'sample', 'sample', 'sample@gmail.com', '$2b$10$5.YcnwTR1HAYXuAhy1ixe.z1nTin5KGWfEqPkV/okKQ1QslVnX1Im', 2, '2024-02-09', NULL);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."products_productid_seq"
-OWNED BY "public"."products"."productid";
-SELECT setval('"public"."products_productid_seq"', 8, true);
+ALTER SEQUENCE "public"."appointments_appointmentid_seq"
+OWNED BY "public"."appointments"."appointmentid";
+SELECT setval('"public"."appointments_appointmentid_seq"', 6, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "public"."transactions_transactionid_seq"
-OWNED BY "public"."transactions"."transactionid";
-SELECT setval('"public"."transactions_transactionid_seq"', 4, true);
+ALTER SEQUENCE "public"."patients_patientid_seq"
+OWNED BY "public"."patients"."patientid";
+SELECT setval('"public"."patients_patientid_seq"', 4, true);
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."users_id_seq"
 OWNED BY "public"."users"."id";
-SELECT setval('"public"."users_id_seq"', 4, true);
+SELECT setval('"public"."users_id_seq"', 1, true);
 
 -- ----------------------------
--- Primary Key structure for table products
+-- Primary Key structure for table appointments
 -- ----------------------------
-ALTER TABLE "public"."products" ADD CONSTRAINT "products_pkey" PRIMARY KEY ("productid");
+ALTER TABLE "public"."appointments" ADD CONSTRAINT "appointments_pkey" PRIMARY KEY ("appointmentid");
 
 -- ----------------------------
--- Primary Key structure for table transactions
+-- Primary Key structure for table patients
 -- ----------------------------
-ALTER TABLE "public"."transactions" ADD CONSTRAINT "transactions_pkey" PRIMARY KEY ("transactionid");
+ALTER TABLE "public"."patients" ADD CONSTRAINT "patients_pkey" PRIMARY KEY ("patientid");
 
 -- ----------------------------
 -- Primary Key structure for table users

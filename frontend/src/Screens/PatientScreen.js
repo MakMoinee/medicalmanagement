@@ -83,7 +83,7 @@ function PatientScreen({ onLogout }) {
       history,
       birthDate,
       phonenumber,
-      dependents,
+      dependents
     )
       .then((response) => {
         if (!response.ok) {
@@ -312,16 +312,16 @@ function PatientScreen({ onLogout }) {
                       Patients
                     </a>
                   </li>
-                  {/* <li className="scroll-to-section">
+                  <li className="scroll-to-section">
                     <a
-                      href="#transactions"
+                      href="#doctors"
                       onClick={() => {
-                        navigate("/transactions");
+                        navigate("/doctors");
                       }}
                     >
-                      Transactions
+                      Doctors
                     </a>
-                  </li> */}
+                  </li>
                   <li className="scroll-to-section">
                     <a href="#contact-us" onClick={handleLogout}>
                       Logout
