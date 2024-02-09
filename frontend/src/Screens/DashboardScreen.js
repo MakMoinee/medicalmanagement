@@ -17,22 +17,19 @@ function DashboardScreen({ onLogout }) {
   };
 
   const openInventory = () => {
-    navigate("/inventory");
-  };
-  const openPos = () => {
-    navigate("/pos");
+    navigate("/patients");
   };
   return (
     <div>
       {/* ***** Header Area Start ***** */}
-      <header className="header-area header-sticky">
+      <header className="header-area background-header">
         <div className="container">
           <div className="row">
             <div className="col-12">
               <nav className="main-nav">
                 {/* ***** Logo Start ***** */}
                 <a href="/" className="logo">
-                  CoffeeMan
+                  MedSys
                 </a>
                 {/* ***** Logo End ***** */}
                 {/* ***** Menu Start ***** */}
@@ -43,16 +40,21 @@ function DashboardScreen({ onLogout }) {
                     </a>
                   </li>
                   <li className="scroll-to-section">
-                    <a href="#openPos" onClick={openPos}>
-                      POS
+                    <a
+                      href="#appointments"
+                      onClick={() => {
+                        navigate("/appointments");
+                      }}
+                    >
+                      Appointments
                     </a>
                   </li>
                   <li className="scroll-to-section">
-                    <a href="#inventory" onClick={openInventory}>
-                      Inventory
+                    <a href="#patients" onClick={openInventory}>
+                      Patients
                     </a>
                   </li>
-                  <li className="scroll-to-section">
+                  {/* <li className="scroll-to-section">
                     <a
                       href="#transactions"
                       onClick={() => {
@@ -61,7 +63,7 @@ function DashboardScreen({ onLogout }) {
                     >
                       Transactions
                     </a>
-                  </li>
+                  </li> */}
                   <li className="scroll-to-section">
                     <a href="#contact-us" onClick={handleLogout}>
                       Logout
@@ -85,29 +87,11 @@ function DashboardScreen({ onLogout }) {
               <div
                 className="left-text col-lg-6 col-md-6 col-sm-12 col-xs-12"
                 data-scroll-reveal="enter left move 30px over 0.6s after 0.4s"
-              >
-                <h2>
-                  Brew, Track, and Thrive with <strong>CofeeMan</strong>
-                </h2>
-                <p>
-                  Elevate your coffee business to new heights with CofeeMan's
-                  intuitive features and robust performance. Start your journey
-                  towards efficiency and excellence today!
-                </p>
-                <a href="#data" className="main-button-slider">
-                  Sign Up
-                </a>
-              </div>
+              ></div>
               <div
                 className="col-lg-6 col-md-6 col-sm-12 col-xs-12"
                 data-scroll-reveal="enter right move 30px over 0.6s after 0.4s"
-              >
-                <img
-                  src="assets/images/slider-icon.png"
-                  className="rounded img-fluid d-block mx-auto"
-                  alt="First Vector Graphic"
-                />
-              </div>
+              ></div>
             </div>
           </div>
         </div>
@@ -121,38 +105,7 @@ function DashboardScreen({ onLogout }) {
         <div className="container">
           <div className="row">
             <div className="col-lg-7 col-md-12 col-sm-12">
-              <p className="copyright">
-                Copyright &copy; 2024 CoffeMan Company
-              </p>
-            </div>
-            <div className="col-lg-5 col-md-12 col-sm-12">
-              <ul className="social">
-                <li>
-                  <a href="#">
-                    <i className="fa fa-facebook"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-twitter"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-linkedin"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-rss"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-dribbble"></i>
-                  </a>
-                </li>
-              </ul>
+              <p className="copyright">Copyright &copy; 2024 MedSys Company</p>
             </div>
           </div>
         </div>

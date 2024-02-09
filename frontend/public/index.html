@@ -12,6 +12,18 @@
       href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900"
       rel="stylesheet">
 
+    <link rel="stylesheet"
+      href="%PUBLIC_URL%/assets/style.css">
+    <meta name="robots" content="noindex, follow">
+    <script type="text/javascript" async
+      src="%PUBLIC_URL%/assets/analytics.js.download"
+      nonce="db7c44e5-7e9b-4a62-af68-1e7998f39342">
+    </script>
+    <script defer
+      referrerpolicy="origin"
+      src="%PUBLIC_URL%/assets/s.js.download"></script>
+    <link rel="stylesheet" type="text/css"
+      href="%PUBLIC_URL%/assets/bootstrap.min.css">
     <link rel="stylesheet" type="text/css"
       href="%PUBLIC_URL%/assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css"
@@ -20,7 +32,6 @@
       href="%PUBLIC_URL%/assets/css/templatemo-art-factory.css">
     <link rel="stylesheet" type="text/css"
       href="%PUBLIC_URL%/assets/css/owl-carousel.css">
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -35,35 +46,32 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>CoffeeMan</title>
-
+    <title>MedSys</title>
     <style>
-      #preloader{
-        background-image: linear-gradient(145deg, #c68100 0%, #b88700a6 100%) !important;
+      .image-holder {
+        background: url("%PUBLIC_URL%/banner.jpg") no-repeat !important;
+        background-size: cover;
+      }
+      .header-area.header-sticky .nav li a {
+        color: #0044fd !important;
       }
       .header-area.header-sticky .nav li a.active {
-        color: #000000 !important;
-      }
-      .header-area .main-nav .nav li:hover a {
-        color: #000000 !important;
-      }
-      .background-header{
-        background-color: #c68100 !important;
-      }
-      .header-area.header-sticky.background-header .nav li a {
         color: #ffffff !important;
-      }
-      .header-area.background-header .nav li a {
-        color: #ffffff !important;
-      }
-      .header-area.header-sticky.background-header .nav li a.active {
-        color: #000000 !important;
       }
       .header-area.background-header .nav li a.active {
-        color: #000000 !important;
+        color: #0044fd !important;
       }
-      .logo{
+      .header-area.background-header .nav li a:hover {
+        color: #0044fd !important;
+      }
+      .header-area .main-nav .logo{
         color: #ffffff !important;
+      }
+      .header-area.header-sticky{
+        background: darkgray !important; 
+      }
+      .header-area.background-header{
+        background: darkgray !important; 
       }
     </style>
   </head>
@@ -80,21 +88,17 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <!-- jQuery -->
-    <script src="%PUBLIC_URL%/assets/js/jquery-2.1.0.min.js"></script>
+    <script
+      src="%PUBLIC_URL%/assets/jquery.form-validator.min.js.download"></script>
+    <script
+      src="%PUBLIC_URL%/assets/main.js.download"></script>
 
-    <!-- Bootstrap -->
-    <script src="%PUBLIC_URL%/assets/js/popper.js"></script>
-    <script src="%PUBLIC_URL%/assets/js/bootstrap.min.js"></script>
+    <script async src="%PUBLIC_URL%/assets/js"></script>
+    <script defer
+      src="%PUBLIC_URL%/assets/v52afc6f149f6479b8c77fa569edb01181681764108816"
+      integrity="sha512-jGCTpDpBAYDGNYR5ztKt4BQPGef1P0giN6ZGVUi835kFF88FOmmn8jBQWNgrNd8g/Yu421NdgWhwQoaOPFflDw=="
+      data-cf-beacon="{&quot;rayId&quot;:&quot;7d8854a6c9b82f10&quot;,&quot;token&quot;:&quot;cd0b4b3a733644fc843ef0b185f98241&quot;,&quot;version&quot;:&quot;2023.4.0&quot;,&quot;si&quot;:100}"
+      crossorigin="anonymous"></script>
 
-    <!-- Plugins -->
-    <script src="%PUBLIC_URL%/assets/js/owl-carousel.js"></script>
-    <script src="%PUBLIC_URL%/assets/js/scrollreveal.min.js"></script>
-    <script src="%PUBLIC_URL%/assets/js/waypoints.min.js"></script>
-    <script src="%PUBLIC_URL%/assets/js/jquery.counterup.min.js"></script>
-    <script src="%PUBLIC_URL%/assets/js/imgfix.min.js"></script>
-
-    <!-- Global Init -->
-    <script src="%PUBLIC_URL%/assets/js/custom.js"></script>
   </body>
 </html>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import { fetchProductsRequest } from "../services/ProductService";
+import { fetchProductsRequest } from "../services/PatientService";
 import { Modal, Button, Form } from "react-bootstrap";
 import { sendAddTransactionRequest } from "../services/TransactionService";
 
@@ -267,7 +267,7 @@ function PosScreen({ onLogout }) {
           <div className="row">
             <div className="col-lg-7 col-md-12 col-sm-12">
               <p className="copyright">
-                Copyright &copy; 2024 CoffeMan Company
+                Copyright &copy; 2024 MedSys Company
               </p>
             </div>
             <div className="col-lg-5 col-md-12 col-sm-12">

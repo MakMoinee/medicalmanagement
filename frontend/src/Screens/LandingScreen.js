@@ -133,148 +133,76 @@ function LandingScreen({ onLogin }) {
 
   return (
     <div>
-      {/* ***** Preloader Start ***** */}
-      <div id="preloader">
-        <div className="jumper">
-          <div></div>
-          <div></div>
-          <div></div>
+      <div className="wrapper">
+        <div className="image-holder">
+          <img src="assets/registration-form-8.jpg" alt="" />
         </div>
-      </div>
-      {/* ***** Preloader End ***** */}
-
-      {/* ***** Header Area Start ***** */}
-      <header className="header-area header-sticky">
-        <div className="container">
-          <div className="row">
-            <div className="col-12">
-              <nav className="main-nav">
-                {/* ***** Logo Start ***** */}
-                <a href="/" className="logo">
-                  CoffeeMan
-                </a>
-                {/* ***** Logo End ***** */}
-                {/* ***** Menu Start ***** */}
-                <ul className="nav">
-                  <li className="scroll-to-section">
-                    <a href="/" className="active">
-                      Home
-                    </a>
-                  </li>
-                  <li className="scroll-to-section">
-                    <a href="#signup" onClick={handleSignupClick}>
-                      Sign Up
-                    </a>
-                  </li>
-                  <li className="scroll-to-section">
-                    <a href="#contact-us" onClick={handleLoginClick}>
-                      Login
-                    </a>
-                  </li>
-                </ul>
-                {/* ***** Menu End ***** */}
-              </nav>
-            </div>
-          </div>
-        </div>
-      </header>
-      {/* ***** Header Area End ***** */}
-
-      {/* ***** Welcome Area Start ***** */}
-      <div className="welcome-area" id="welcome">
-        {/* ***** Header Text Start ***** */}
-        <div className="header-text">
-          <div className="container">
-            <div className="row">
-              <div
-                className="left-text col-lg-6 col-md-6 col-sm-12 col-xs-12"
-                data-scroll-reveal="enter left move 30px over 0.6s after 0.4s"
-              >
-                <h2>
-                  Brew, Track, and Thrive with <strong>CofeeMan</strong>
-                </h2>
-                <p>
-                  Elevate your coffee business to new heights with CofeeMan's
-                  intuitive features and robust performance. Start your journey
-                  towards efficiency and excellence today!
-                </p>
-                <a
-                  href="#data"
-                  className="main-button-slider"
-                  onClick={handleSignupClick}
-                >
-                  Sign Up
-                </a>
-              </div>
-              <div
-                className="col-lg-6 col-md-6 col-sm-12 col-xs-12"
-                data-scroll-reveal="enter right move 30px over 0.6s after 0.4s"
-              >
+        <div className="form-inner">
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <div className="col-lg-12">
+              <div className="form-header">
+                <h3>MedSys</h3>
                 <img
-                  src="assets/images/slider-icon.png"
-                  className="rounded img-fluid d-block mx-auto"
-                  alt="First Vector Graphic"
+                  src="assets/sign-up.webp"
+                  alt=""
+                  className="sign-up-icon"
                 />
               </div>
+              <Form.Group controlId="signup-email">
+                <Form.Label for="email">Email:</Form.Label>
+                <Form.Control
+                  type="email"
+                  name="email"
+                  required
+                  value={formLoginValues.email}
+                  onChange={handleLoginInputChange}
+                />
+              </Form.Group>
+              <Form.Group
+                controlId="signup-password"
+                style={{ marginTop: "10px" }}
+              >
+                <Form.Label for="password">Password:</Form.Label>
+                <Form.Control
+                  type="password"
+                  name="password"
+                  required
+                  value={formLoginValues.password}
+                  onChange={handleLoginInputChange}
+                />
+              </Form.Group>
+              <Button
+                variant="primary"
+                type="submit"
+                onClick={handleLoginRequest}
+              >
+                Login
+              </Button>
+              <Button
+                variant="secondary"
+                type="submit"
+                onClick={handleSignupClick}
+              >
+                Create my account
+              </Button>
             </div>
-          </div>
+          </Form>
         </div>
-        {/* ***** Header Text End ***** */}
       </div>
-      {/* ***** Welcome Area End ***** */}
-      {/* ***** Features Big Item End ***** */}
-
-      {/* ***** Footer Start ***** */}
-      <footer>
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-7 col-md-12 col-sm-12">
-              <p className="copyright">
-                Copyright &copy; 2024 CoffeMan Company
-              </p>
-            </div>
-            <div className="col-lg-5 col-md-12 col-sm-12">
-              <ul className="social">
-                <li>
-                  <a href="#">
-                    <i className="fa fa-facebook"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-twitter"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-linkedin"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-rss"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <i className="fa fa-dribbble"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
-      {/* ***** Footer End ***** */}
-
       <Modal show={showSignupModal} onHide={handleCloseSignUpModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Sign Up</Modal.Title>
+          <Modal.Title>Create Account</Modal.Title>
         </Modal.Header>
         <Form>
           <Modal.Body>
             <Form.Group controlId="signup-email">
-              <Form.Label for="email">Email:</Form.Label>
+              <Form.Label for="email" style={{ color: "black !important" }}>
+                Email:
+              </Form.Label>
               <Form.Control
                 type="email"
                 name="email"
@@ -344,52 +272,6 @@ function LandingScreen({ onLogin }) {
               Sign Up
             </Button>
             <Button variant="secondary" onClick={handleCloseSignUpModal}>
-              Close
-            </Button>
-            {/* Additional buttons or actions */}
-          </Modal.Footer>
-        </Form>
-      </Modal>
-
-      <Modal show={showLoginModal} onHide={handleCloseLoginModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Login</Modal.Title>
-        </Modal.Header>
-        <Form onSubmit={handleLoginSubmit}>
-          <Modal.Body>
-            <Form.Group controlId="signup-email">
-              <Form.Label for="email">Email:</Form.Label>
-              <Form.Control
-                type="email"
-                name="email"
-                required
-                value={formLoginValues.email}
-                onChange={handleLoginInputChange}
-              />
-            </Form.Group>
-            <Form.Group
-              controlId="signup-password"
-              style={{ marginTop: "15px" }}
-            >
-              <Form.Label for="password">Password:</Form.Label>
-              <Form.Control
-                type="password"
-                name="password"
-                required
-                value={formLoginValues.password}
-                onChange={handleLoginInputChange}
-              />
-            </Form.Group>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              type="submit"
-              variant="primary"
-              onClick={handleLoginRequest}
-            >
-              Login
-            </Button>
-            <Button variant="secondary" onClick={handleCloseLoginModal}>
               Close
             </Button>
             {/* Additional buttons or actions */}

@@ -1,14 +1,29 @@
 import defaultData from "../Commons/Commons";
 
-const sendAddProductRequest = (productName, productPrice, category, stock) => {
+const sendAddPatientRequest = (
+  firstName,
+  middleName,
+  lastName,
+  address,
+  gender,
+  history,
+  birthDate,
+  phoneNumber,
+  dependents
+) => {
   return new Promise((resolve, reject) => {
-    fetch(defaultData.productsURL, {
+    fetch(defaultData.patientsURL, {
       method: "POST",
       body: JSON.stringify({
-        productName,
-        productPrice,
-        category,
-        stock,
+        firstName,
+        middleName,
+        lastName,
+        address,
+        gender,
+        history,
+        birthDate,
+        phoneNumber,
+        dependents,
       }),
       headers: {
         "Content-Type": "application/json",
@@ -26,7 +41,7 @@ const sendAddProductRequest = (productName, productPrice, category, stock) => {
         resolve(data);
       })
       .catch((error) => {
-        console.error("Error creating product:", error);
+        console.error("Error creating patient:", error);
         reject(error);
       });
   });
@@ -34,7 +49,7 @@ const sendAddProductRequest = (productName, productPrice, category, stock) => {
 
 const fetchProductsRequest = (email, password) => {
   return new Promise((resolve, reject) => {
-    fetch(defaultData.productsURL, {
+    fetch(defaultData.patientsURL, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -56,9 +71,9 @@ const fetchProductsRequest = (email, password) => {
   });
 };
 
-const deleteProductsRequest = (id) => {
+const deletePatientRequest = (id) => {
   return new Promise((resolve, reject) => {
-    fetch(defaultData.productsURL + `/${id}`, {
+    fetch(defaultData.patientDeleteURL + `/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -82,19 +97,28 @@ const deleteProductsRequest = (id) => {
 
 const sendUpdateProductRequest = (
   id,
-  productName,
-  productPrice,
-  category,
-  stock
+  firstName,
+  middleName,
+  lastName,
+  address,
+  gender,
+  history,
+  birthDate,
+  phoneNumber,
+  dependents
 ) => {
   return new Promise((resolve, reject) => {
-    fetch(defaultData.productsURL + `/update/${id}`, {
+    fetch(defaultData.patientsURL + `/${id}`, {
       method: "POST",
       body: JSON.stringify({
-        productName,
-        productPrice,
-        category,
-        stock,
+        firstName,
+        middleName,
+        lastName,
+        address,
+        gender,
+        history,
+        phoneNumber,
+        dependents,
         btnUpdate: true,
       }),
       headers: {
@@ -120,8 +144,8 @@ const sendUpdateProductRequest = (
 };
 
 export {
-  sendAddProductRequest,
+  sendAddPatientRequest,
   fetchProductsRequest,
-  deleteProductsRequest,
+  deletePatientRequest,
   sendUpdateProductRequest,
 };

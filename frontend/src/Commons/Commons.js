@@ -2,7 +2,8 @@ module.exports = {
   apiURL: "http://127.0.0.1:3001",
   signupURL: "http://127.0.0.1:3001/",
   loginURL: "http://127.0.0.1:3001/login",
-  productsURL: "http://127.0.0.1:3001/products",
-  productDeleteURL: "http://127.0.0.1:3001/products/:id",
-  transURL: "http://127.0.0.1:3001/transactions"
+  patientsURL: "http://127.0.0.1:3001/patients",
+  patientDeleteURL: "http://127.0.0.1:3001/patients",
+  transURL: "http://127.0.0.1:3001/transactions",
+  appointmentURL: "http://127.0.0.1:3001/appointments"
 };

@@ -155,7 +155,7 @@ function TransactionScreen({ onLogout }) {
           <div className="row">
             <div className="col-lg-7 col-md-12 col-sm-12">
               <p className="copyright">
-                Copyright &copy; 2024 CoffeMan Company
+                Copyright &copy; 2024 MedSys Company
               </p>
             </div>
             <div className="col-lg-5 col-md-12 col-sm-12">
