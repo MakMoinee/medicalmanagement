@@ -6,5 +6,6 @@ module.exports = {
   patientDeleteURL: "http://127.0.0.1:3001/patients",
   transURL: "http://127.0.0.1:3001/transactions",
   appointmentURL: "http://127.0.0.1:3001/appointments",
+  appointmentDetailsURL: "http://127.0.0.1:3001/appointments/detail",
   doctorsURL: "http://127.0.0.1:3001/doctors",
 };

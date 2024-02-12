@@ -61,4 +61,75 @@ const fetchAppointmentsRequest = () => {
   });
 };
 
-export { sendAddAppointmentRequest, fetchAppointmentsRequest };
+const fetchAppointmentDetailRequest = (id) => {
+  return new Promise((resolve, reject) => {
+    fetch(defaultData.appointmentDetailsURL + `/${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          reject(new Error("Network response was not ok"));
+        }
+        resolve(response);
+      })
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((error) => {
+        console.error("There was an error!", error);
+        reject(error);
+      });
+  });
+};
+
+const sendUpdateAppointmentRequest = (
+  id,
+  patientname,
+  appointmentdate,
+  doctor,
+  contactnumber,
+  prescription,
+  history
+) => {
+  return new Promise((resolve, reject) => {
+    fetch(defaultData.appointmentURL + `/${id}`, {
+      method: "POST",
+      body: JSON.stringify({
+        patientname,
+        appointmentdate,
+        doctor,
+        contactnumber,
+        prescription,
+        history,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          reject(new Error("Network response was not ok"));
+        } else {
+          resolve(response);
+        }
+      })
+      .then((data) => {
+        // Simulating a successful account creation
+        resolve(data);
+      })
+      .catch((error) => {
+        console.error("Error creating appointment:", error);
+        reject(error);
+      });
+  });
+};
+
+export {
+  sendAddAppointmentRequest,
+  fetchAppointmentsRequest,
+  fetchAppointmentDetailRequest,
+  sendUpdateAppointmentRequest,
+};

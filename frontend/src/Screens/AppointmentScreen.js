@@ -158,6 +158,11 @@ function AppointmentScreen({ onLogout }) {
       });
   };
 
+  const handleViewClick = (index) => {
+    const sid = appointments[index].appointmentid;
+    navigate(`/detail/appointments/${sid}`);
+  };
+
   useEffect(() => {
     reload();
   }, []);
@@ -254,6 +259,7 @@ function AppointmentScreen({ onLogout }) {
                       <th>Appointment Date</th>
                       <th className="text-center">Contact Number</th>
                       <th>Doctor</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -262,27 +268,40 @@ function AppointmentScreen({ onLogout }) {
                         <td className="text-center">
                           {appointment.patientname}
                         </td>
-                        <td>{appointment.appointmentdate}</td>
+                        <td>
+                          {new Date(appointment.appointmentdate).toLocaleString(
+                            "en-PH",
+                            {
+                              timeZone: "Asia/Manila",
+                              year: "numeric",
+                              month: "2-digit",
+                              day: "2-digit",
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              hour12: true,
+                            }
+                          )}
+                        </td>
                         <td className="text-center">
                           {appointment.contactnumber}
                         </td>
                         <td>{appointment.doctor}</td>
 
-                        {/* <td>
+                        <td>
                           <Button
                             variant="success"
                             className="mr-2"
-                            // onClick={() => handleUpdateClick(index)}
+                            onClick={() => handleViewClick(index)}
                           >
-                            Update
+                            View
                           </Button>
-                          <Button
+                          {/* <Button
                             variant="danger"
                             // onClick={() => handleDeleteClick(index)}
                           >
                             Delete
-                          </Button>
-                        </td> */}
+                          </Button> */}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -357,7 +376,7 @@ function AppointmentScreen({ onLogout }) {
             <Form.Group controlId="signup-appointmentdate">
               <Form.Label for="appointmentdate">Appointment Date:</Form.Label>
               <Form.Control
-                type="date"
+                type="datetime-local"
                 name="appointmentdate"
                 value={formAddAppointmentValues.appointmentdate}
                 onChange={handleAddAppointmentInputChange}

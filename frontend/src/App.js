@@ -7,11 +7,10 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
-import PosScreen from "./Screens/PosScreen";
-import TransactionScreen from "./Screens/TransactionScreen";
 import PatientScreen from "./Screens/PatientScreen";
 import AppointmentScreen from "./Screens/AppointmentScreen";
 import DoctorScreen from "./Screens/DoctorScreen";
+import AppointmentDetailScreen from "./Screens/AppointmentDetailScreen";
 
 function App() {
   const initialLoginStatus = localStorage.getItem("isLoggedIn") === "true"; // Corrected the comparison
@@ -79,6 +78,16 @@ function App() {
           element={
             isLoggedIn ? (
               <DoctorScreen onLogout={handleLogout} />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        />
+        <Route
+          path="/detail/appointments/:id"
+          element={
+            isLoggedIn ? (
+              <AppointmentDetailScreen onLogout={handleLogout} />
             ) : (
               <Navigate to="/" />
             )

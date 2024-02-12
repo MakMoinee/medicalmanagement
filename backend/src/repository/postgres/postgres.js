@@ -467,6 +467,93 @@ const fetchAppointments = () => {
   });
 };
 
+const fetchAppointment = (id) => {
+  return new Promise((resolve, reject) => {
+    pool.connect((err, client, release) => {
+      if (err) {
+        console.error("Error connecting to the database:", err);
+        release(); // Release the client
+        reject(err);
+        return;
+      }
+
+      return client
+        .query("SELECT * FROM appointments WHERE appointmentid=$1", [id])
+        .then((result) => {
+          client.release(); // Release the client
+          if (result.rows.length > 0) {
+            resolve(result.rows);
+          } else {
+            release(); // Release the client
+            reject(new Error("Appointment not found"));
+          }
+        })
+        .catch((error) => {
+          client.release(); // Release the client
+          console.error("Error Appointment:", error);
+          reject(error); // Reject the promise with the error
+        });
+    });
+  });
+};
+
+const updateAppointment = (
+  id,
+  patientname,
+  appointmentdate,
+  doctor,
+  contactnumber,
+  prescription,
+  history
+) => {
+  return new Promise((resolve, reject) => {
+    pool.connect((err, client, release) => {
+      if (err) {
+        console.error("Error connecting to the database:", err);
+        release(); // Release the client
+        reject(err);
+        return;
+      }
+
+      // Check if the product with given patientID exists
+      client.query(
+        "SELECT * FROM appointments WHERE appointmentid = $1",
+        [id],
+        (err, result) => {
+          if (err) {
+            release(); // Release the client
+            console.error("Error checking patient:", err);
+            reject(err);
+            return;
+          }
+
+          if (result.rows.length === 0) {
+            release(); // Release the client
+            console.error("Patient not found");
+            reject("Product not found");
+            return;
+          }
+
+          const query =
+            "UPDATE appointments SET prescription = $2, history = $3 WHERE appointmentid = $1";
+
+          client.query(query, [id, prescription, history], (err, result) => {
+            release(); // Release the client
+
+            if (err) {
+              console.error("Error updating appointment:", err);
+              reject(err);
+            } else {
+              console.log("appointment updated successfully");
+              resolve();
+            }
+          });
+        }
+      );
+    });
+  });
+};
+
 module.exports = {
   pool,
   addUser,
@@ -479,8 +566,10 @@ module.exports = {
   fetchTransactions,
   addAppointment,
   fetchAppointments,
+  fetchAppointment,
   addDoctor,
   fetchDoctors,
   deleteDoctor,
   updateDoctor,
+  updateAppointment,
 };
